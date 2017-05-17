@@ -4,12 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/.bin/mocha --timeout 30000"
+    "test": "./node_modules/.bin/mocha --compilers js:babel-register"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "babel-register": "^6.24.1",
     "chai": "^3.5.0",
     "mocha": "^3.4.1"
   }
