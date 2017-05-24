@@ -12,6 +12,14 @@ AvlNode.insert = (obj, prop, value) => {
   }
 }
 
+AvlNode.rotateIfNeeded = function(obj, prop) {
+  if (obj[prop].balance < -1) {
+    AvlNode.rotate(obj, prop, 'right');
+  } else if (obj[prop].balance > 1) {
+    AvlNode.rotate(obj, prop, 'left');
+  }
+}
+
 AvlNode.rotate = (parent, prop, side) => {
   let otherSide = side === 'left' ? 'right' : 'left';
   let newRoot = parent[prop][otherSide];
