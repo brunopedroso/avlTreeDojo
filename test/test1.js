@@ -99,42 +99,48 @@ describe('AvlTree', () => {
 
     });
 
-    describe('node height', () => {
+    describe('node height and balance', () => {
 
       it('equals 1 when there are no children', () => {
         tree.insert(1)
         expect(tree.root.height).to.eql(1);
+        expect(tree.root.balance).to.eql(0);
       });
 
       it('equals 2 when there are one child right', () => {
         tree.insert(1)
         tree.insert(2)
         expect(tree.root.height).to.eql(2);
+        expect(tree.root.balance).to.eql(1);
       });
 
       it('equals 2 when there are one child left', () => {
         tree.insert(2)
         tree.insert(1)
         expect(tree.root.height).to.eql(2);
+        expect(tree.root.balance).to.eql(-1);
       });
 
     });
 
     describe('rotation', () => {
 
-      it.skip('should rotate right', () => {
+      it('should rotate right', () => {
         tree.insert(3)
         tree.insert(2)
         tree.insert(1) // grandchild
-        expect(tree.toJson()).to.eql({
-          value: 2,
-          left: {
-            value: 1,
-          },
-          right: {
-            value: 2,
-          }
-        });
+
+        expect(tree.root.value).to.eql(2)
+        expect(tree.root.height).to.eql(2)
+        expect(tree.root.balance).to.eql(0)
+
+        expect(tree.root.left.value).to.eql(1)
+        expect(tree.root.left.height).to.eql(1)
+        expect(tree.root.left.balance).to.eql(0)
+
+        expect(tree.root.right.value).to.eql(3)
+        expect(tree.root.right.height).to.eql(1)
+        expect(tree.root.right.balance).to.eql(0)
       });
 
     });

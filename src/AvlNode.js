@@ -1,6 +1,7 @@
 function AvlNode(value) {
   this.value = value;
   this.height = 1;
+  this.balance = 0;
 };
 
 AvlNode.insert = (obj, prop, value) => {
@@ -27,6 +28,7 @@ AvlNode.prototype = {
     let left_height = this.left ? this.left.height : 0;
     let right_height = this.right ? this.right.height : 0;
     this.height = Math.max(left_height, right_height) + 1;
+    this.balance = right_height - left_height;
   },
 
   toJson() {
