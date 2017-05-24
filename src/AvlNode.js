@@ -12,6 +12,19 @@ AvlNode.insert = (obj, prop, value) => {
   }
 }
 
+AvlNode.rotate = (parent, prop, side) => {
+  let otherSide = side === 'left' ? 'right' : 'left';
+  let newRoot = parent[prop][otherSide];
+
+  parent[prop][otherSide] = undefined;
+  parent[prop].updateHeight()
+
+  newRoot[side] = parent[prop];
+  newRoot.updateHeight()
+
+  parent[prop] = newRoot;
+}
+
 AvlNode.prototype = {
 
   insert(value) {
