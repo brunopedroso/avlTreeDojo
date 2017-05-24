@@ -125,7 +125,7 @@ describe('AvlTree', () => {
 
     describe('rotation', () => {
 
-      it('should rotate right', () => {
+      it('should rotate root right', () => {
         tree.insert(3)
         tree.insert(2)
         tree.insert(1)
@@ -143,7 +143,7 @@ describe('AvlTree', () => {
         expect(tree.root.right.balance).to.eql(0)
       });
 
-      it('should rotate left', () => {
+      it('should rotate root left', () => {
         tree.insert(1)
         tree.insert(2)
         tree.insert(3)
@@ -159,6 +159,25 @@ describe('AvlTree', () => {
         expect(tree.root.right.value).to.eql(3)
         expect(tree.root.right.height).to.eql(1)
         expect(tree.root.right.balance).to.eql(0)
+      });
+
+      it('should rotate root right with left having a right child', () => {
+        tree.insert(3)
+        tree.insert(1)
+        tree.insert(2)
+
+        expect(tree.root.value).to.eql(2)
+        expect(tree.root.height).to.eql(2)
+        expect(tree.root.balance).to.eql(0)
+
+        expect(tree.root.left.value).to.eql(1)
+        expect(tree.root.left.height).to.eql(1)
+        expect(tree.root.left.balance).to.eql(0)
+
+        expect(tree.root.right.value).to.eql(3)
+        expect(tree.root.right.height).to.eql(1)
+        expect(tree.root.right.balance).to.eql(0)
+
       });
 
     });
