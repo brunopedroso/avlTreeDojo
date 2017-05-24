@@ -19,13 +19,8 @@ AvlNode.prototype = {
   },
 
   insertChild(value) {
-    if (value < this.value) {
-      AvlNode.insert(this, 'left', value);
-
-    } else {
-      AvlNode.insert(this, 'right', value);
-
-    }
+    let side = value < this.value ? 'left' : 'right';
+    AvlNode.insert(this, side, value);
   },
 
   updateHeight() {
