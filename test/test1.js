@@ -11,89 +11,135 @@ describe('AvlTree', () => {
 
   describe('#insert()', () => {
 
-    it('initiates empty', () => {
-      expect(tree.toJson()).to.equal(undefined);
-    });
+    describe('without rotation', () => {
 
-    it('should insert the first node', () => {
-      tree.insert(1)
-      expect(tree.toJson()).to.eql({value: 1});
-    });
-
-    it('should insert the bigger node to the right', () => {
-      tree.insert(1)
-      tree.insert(2)
-      expect(tree.toJson()).to.eql({
-        value: 1,
-        right: {
-          value: 2
-        }
+      it('initiates empty', () => {
+        expect(tree.toJson()).to.equal(undefined);
       });
-    });
 
-    it('should insert the smaller node to the left', () => {
-      tree.insert(2)
-      tree.insert(1)
-      expect(tree.toJson()).to.eql({
-        value: 2,
-        left: {
-          value: 1
-        }
+      it('should insert the first node', () => {
+        tree.insert(1)
+        expect(tree.toJson()).to.eql({value: 1});
       });
-    });
 
-    it('should insert one children on each side (no rotation)', () => {
-      tree.insert(2)
-      tree.insert(1)
-      tree.insert(3)
-      expect(tree.toJson()).to.eql({
-        value: 2,
-        left: {
-          value: 1
-        },
-        right: {
-          value: 3
-        }
-      });
-    });
-
-    it('should insert one grandchild to the right (no rotation)', () => {
-      tree.insert(2)
-      tree.insert(1) // this is to skip rotation
-      tree.insert(3)
-      tree.insert(4) // grandchild
-      expect(tree.toJson()).to.eql({
-        value: 2,
-        left: {
-          value: 1
-        },
-        right: {
-          value: 3,
+      it('should insert the bigger node to the right', () => {
+        tree.insert(1)
+        tree.insert(2)
+        expect(tree.toJson()).to.eql({
+          value: 1,
           right: {
-            value: 4
+            value: 2
           }
-        }
+        });
       });
-    });
 
-    it('should insert one grandchild to the left (no rotation)', () => {
-      tree.insert(3)
-      tree.insert(4) // this is to skip rotation
-      tree.insert(2)
-      tree.insert(1) // grandchild
-      expect(tree.toJson()).to.eql({
-        value: 3,
-        left: {
+      it('should insert the smaller node to the left', () => {
+        tree.insert(2)
+        tree.insert(1)
+        expect(tree.toJson()).to.eql({
           value: 2,
           left: {
             value: 1
           }
-        },
-        right: {
-          value: 4,
-        }
+        });
       });
+
+      it('should insert one children on each side (no rotation)', () => {
+        tree.insert(2)
+        tree.insert(1)
+        tree.insert(3)
+        expect(tree.toJson()).to.eql({
+          value: 2,
+          left: {
+            value: 1
+          },
+          right: {
+            value: 3
+          }
+        });
+      });
+
+      it('should insert one grandchild to the right (no rotation)', () => {
+        tree.insert(2)
+        tree.insert(1) // this is to skip rotation
+        tree.insert(3)
+        tree.insert(4) // grandchild
+        expect(tree.toJson()).to.eql({
+          value: 2,
+          left: {
+            value: 1
+          },
+          right: {
+            value: 3,
+            right: {
+              value: 4
+            }
+          }
+        });
+      });
+
+      it('should insert one grandchild to the left (no rotation)', () => {
+        tree.insert(3)
+        tree.insert(4) // this is to skip rotation
+        tree.insert(2)
+        tree.insert(1) // grandchild
+        expect(tree.toJson()).to.eql({
+          value: 3,
+          left: {
+            value: 2,
+            left: {
+              value: 1
+            }
+          },
+          right: {
+            value: 4,
+          }
+        });
+      });
+
     });
+
+    describe('node height', () => {
+
+      it('equals 1 when there are no children', () => {
+        tree.insert(1)
+        expect(tree.root.height).to.eql(1);
+      });
+
+      it('equals 2 when there are one child right', () => {
+        tree.insert(1)
+        tree.insert(2)
+        expect(tree.root.height).to.eql(2);
+      });
+
+      it('equals 2 when there are one child left', () => {
+        tree.insert(2)
+        tree.insert(1)
+        expect(tree.root.height).to.eql(2);
+      });
+
+    });
+
+    describe('rotation', () => {
+
+      it.skip('should rotate right', () => {
+        tree.insert(3)
+        tree.insert(2)
+        tree.insert(1) // grandchild
+        expect(tree.toJson()).to.eql({
+          value: 2,
+          left: {
+            value: 1,
+          },
+          right: {
+            value: 2,
+          }
+        });
+      });
+
+    });
+
+
 
   });
 
