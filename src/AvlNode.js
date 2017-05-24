@@ -3,6 +3,14 @@ function AvlNode(value) {
   this.height = 1;
 };
 
+AvlNode.insert = (obj, prop, value) => {
+  if (obj[prop]) {
+    obj[prop].insert(value);
+  } else {
+    obj[prop] = new AvlNode(value);
+  }
+}
+
 AvlNode.prototype = {
 
   insert(value) {
@@ -12,22 +20,10 @@ AvlNode.prototype = {
 
   insertChild(value) {
     if (value < this.value) {
-      if (this.left) {
-        this.left.insert(value);
-
-      } else {
-        this.left = new AvlNode(value);
-
-      }
+      AvlNode.insert(this, 'left', value);
 
     } else {
-      if (this.right) {
-        this.right.insert(value);
-
-      } else {
-        this.right = new AvlNode(value);
-
-      }
+      AvlNode.insert(this, 'right', value);
 
     }
   },

@@ -6,11 +6,7 @@ function AvlTree() {
 
 AvlTree.prototype = {
   insert(value) {
-    if (!this.root) {
-      this.root = new AvlNode(value);
-    } else {
-      this.root.insert(value);
-    }
+    AvlNode.insert(this, 'root', value);
   },
   toJson() {
     if (this.root) {
